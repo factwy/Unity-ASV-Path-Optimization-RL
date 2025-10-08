@@ -48,6 +48,12 @@ namespace Crest
         [SerializeField] private float goalReachThreshold = 5f;
         [SerializeField] private float maxEpisodeSteps = 5000f;
         [SerializeField] private float capsizeRollThreshold = 60f;
+
+        [Header("Test Settings")]
+        public bool isTestMode = false;
+        public int testStaticObstacles = 5;
+        public int testMovingObstacles = 3;
+        public float testTimeScale = 1.0f;
         
         // State variables
         private Vector3 startPosition;
@@ -119,6 +125,10 @@ namespace Crest
                     obstacle.SetActive(false);
             }
             
+            // 추론 과정에서의 시간 배율 조정
+            if (isTestMode)
+                Time.timeScale = testTimeScale;
+
             // Debug.Log("BoatAgent_RL Awake completed successfully");
         }
 
@@ -182,32 +192,39 @@ namespace Crest
         /// </summary>
         private void UpdateCurriculumObstacles()
         {
-            // Environment Parameters에서 값 읽기
-            int targetStaticCount = Mathf.RoundToInt(
-                Academy.Instance.EnvironmentParameters.GetWithDefault("num_static_obstacles", 0f)
-            );
-            int targetMovingCount = Mathf.RoundToInt(
-                Academy.Instance.EnvironmentParameters.GetWithDefault("num_moving_obstacles", 0f)
-            );
-            
-            // Debug.Log($"[Curriculum] Read from Academy - Static: {targetStaticCount}, Moving: {targetMovingCount}");
-            // Debug.Log($"[Curriculum] Current values - Static: {currentNumStaticObstacles}, Moving: {currentNumMovingObstacles}");
-            
-            // 이전 설정과 다르면 장애물 재배치
-            if (targetStaticCount != currentNumStaticObstacles || 
-                targetMovingCount != currentNumMovingObstacles)
-            {
-                currentNumStaticObstacles = targetStaticCount;
-                currentNumMovingObstacles = targetMovingCount;
-                
-                // Debug.Log($"[Curriculum] UPDATE! Now Setting - Static: {currentNumStaticObstacles}, Moving: {currentNumMovingObstacles}");
-                
-                // 장애물 활성화/비활성화
+            if (isTestMode) {
+                currentNumStaticObstacles = testStaticObstacles;
+                currentNumMovingObstacles = testMovingObstacles;
                 ActivateObstacles();
-            }
-            else
-            {
-                // Debug.Log("[Curriculum] No change detected, skipping obstacle update");
+                return;
+            } else {
+                // Environment Parameters에서 값 읽기
+                int targetStaticCount = Mathf.RoundToInt(
+                    Academy.Instance.EnvironmentParameters.GetWithDefault("num_static_obstacles", 0f)
+                );
+                int targetMovingCount = Mathf.RoundToInt(
+                    Academy.Instance.EnvironmentParameters.GetWithDefault("num_moving_obstacles", 0f)
+                );
+                
+                // Debug.Log($"[Curriculum] Read from Academy - Static: {targetStaticCount}, Moving: {targetMovingCount}");
+                // Debug.Log($"[Curriculum] Current values - Static: {currentNumStaticObstacles}, Moving: {currentNumMovingObstacles}");
+                
+                // 이전 설정과 다르면 장애물 재배치
+                if (targetStaticCount != currentNumStaticObstacles || 
+                    targetMovingCount != currentNumMovingObstacles)
+                {
+                    currentNumStaticObstacles = targetStaticCount;
+                    currentNumMovingObstacles = targetMovingCount;
+                    
+                    // Debug.Log($"[Curriculum] UPDATE! Now Setting - Static: {currentNumStaticObstacles}, Moving: {currentNumMovingObstacles}");
+                    
+                    // 장애물 활성화/비활성화
+                    ActivateObstacles();
+                }
+                else
+                {
+                    // Debug.Log("[Curriculum] No change detected, skipping obstacle update");
+                }
             }
         }
 
