@@ -1,0 +1,29 @@
+{
+    "Boat": {
+        "checkpoints": [
+            {
+                "steps": 10028,
+                "file_path": "results\\test-03\\Boat\\Boat-10028.onnx",
+                "reward": null,
+                "creation_time": 1759143035.5623422,
+                "auxillary_file_paths": [
+                    "results\\test-03\\Boat\\Boat-10028.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 10028,
+            "file_path": "results\\test-03\\Boat.onnx",
+            "reward": null,
+            "creation_time": 1759143035.5623422,
+            "auxillary_file_paths": [
+                "results\\test-03\\Boat\\Boat-10028.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "2.2.1+cu121"
+    }
+}

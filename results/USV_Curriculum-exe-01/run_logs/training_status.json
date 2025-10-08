@@ -1,0 +1,71 @@
+{
+    "num_static_obstacles": {
+        "lesson_num": 3
+    },
+    "num_moving_obstacles": {
+        "lesson_num": 3
+    },
+    "USVAgent": {
+        "checkpoints": [
+            {
+                "steps": 849751,
+                "file_path": "results\\USV_Curriculum-exe-01\\USVAgent\\USVAgent-849751.onnx",
+                "reward": 1364.6332110236672,
+                "creation_time": 1759908078.0242214,
+                "auxillary_file_paths": [
+                    "results\\USV_Curriculum-exe-01\\USVAgent\\USVAgent-849751.pt"
+                ]
+            },
+            {
+                "steps": 899788,
+                "file_path": "results\\USV_Curriculum-exe-01\\USVAgent\\USVAgent-899788.onnx",
+                "reward": 935.9332244228309,
+                "creation_time": 1759908155.2654696,
+                "auxillary_file_paths": [
+                    "results\\USV_Curriculum-exe-01\\USVAgent\\USVAgent-899788.pt"
+                ]
+            },
+            {
+                "steps": 949909,
+                "file_path": "results\\USV_Curriculum-exe-01\\USVAgent\\USVAgent-949909.onnx",
+                "reward": 801.1611843109131,
+                "creation_time": 1759908234.5046673,
+                "auxillary_file_paths": [
+                    "results\\USV_Curriculum-exe-01\\USVAgent\\USVAgent-949909.pt"
+                ]
+            },
+            {
+                "steps": 999943,
+                "file_path": "results\\USV_Curriculum-exe-01\\USVAgent\\USVAgent-999943.onnx",
+                "reward": 986.1392941815512,
+                "creation_time": 1759908312.975841,
+                "auxillary_file_paths": [
+                    "results\\USV_Curriculum-exe-01\\USVAgent\\USVAgent-999943.pt"
+                ]
+            },
+            {
+                "steps": 1000199,
+                "file_path": "results\\USV_Curriculum-exe-01\\USVAgent\\USVAgent-1000199.onnx",
+                "reward": 986.1392941815512,
+                "creation_time": 1759908313.0260704,
+                "auxillary_file_paths": [
+                    "results\\USV_Curriculum-exe-01\\USVAgent\\USVAgent-1000199.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1000199,
+            "file_path": "results\\USV_Curriculum-exe-01\\USVAgent.onnx",
+            "reward": 986.1392941815512,
+            "creation_time": 1759908313.0260704,
+            "auxillary_file_paths": [
+                "results\\USV_Curriculum-exe-01\\USVAgent\\USVAgent-1000199.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "2.2.1+cu121"
+    }
+}

@@ -1,0 +1,97 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1759829600",
+        "python_version": "3.9.23 (main, Jun  5 2025, 13:25:08) [MSC v.1929 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\factw\\anaconda3\\envs\\gazebo\\Scripts\\mlagents-learn .\\config\\boat_rl_test.yaml --run-id=test_003",
+        "mlagents_version": "0.30.0",
+        "mlagents_envs_version": "0.30.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "2.2.1+cu121",
+        "numpy_version": "1.21.2",
+        "end_time_seconds": "1759829922"
+    },
+    "total": 321.8544956,
+    "count": 1,
+    "self": 0.0023558000000321044,
+    "children": {
+        "run_training.setup": {
+            "total": 0.04927619999999999,
+            "count": 1,
+            "self": 0.04927619999999999
+        },
+        "TrainerController.start_learning": {
+            "total": 321.80286359999997,
+            "count": 1,
+            "self": 0.01606330000009848,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 5.998329,
+                    "count": 1,
+                    "self": 5.998329
+                },
+                "TrainerController.advance": {
+                    "total": 315.66067469999996,
+                    "count": 1,
+                    "self": 1.0699999961616413e-05,
+                    "children": {
+                        "env_step": {
+                            "total": 315.660664,
+                            "count": 1,
+                            "self": 315.6606583,
+                            "children": {
+                                "SubprocessEnvManager._take_step": {
+                                    "total": 5.699999999997374e-06,
+                                    "count": 1,
+                                    "self": 5.699999999997374e-06
+                                }
+                            }
+                        }
+                    }
+                },
+                "trainer_threads": {
+                    "total": 1.669999994646787e-05,
+                    "count": 1,
+                    "self": 1.669999994646787e-05,
+                    "children": {
+                        "thread_root": {
+                            "total": 0.0,
+                            "count": 0,
+                            "is_parallel": true,
+                            "self": 0.0,
+                            "children": {
+                                "trainer_advance": {
+                                    "total": 315.4538163000014,
+                                    "count": 20711,
+                                    "is_parallel": true,
+                                    "self": 0.4057323000024553,
+                                    "children": {
+                                        "process_trajectory": {
+                                            "total": 315.04808399999894,
+                                            "count": 20711,
+                                            "is_parallel": true,
+                                            "self": 315.04808399999894
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "TrainerController._save_models": {
+                    "total": 0.12777989999995043,
+                    "count": 1,
+                    "self": 0.01509879999991881,
+                    "children": {
+                        "RLTrainer._checkpoint": {
+                            "total": 0.11268110000003162,
+                            "count": 1,
+                            "self": 0.11268110000003162
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

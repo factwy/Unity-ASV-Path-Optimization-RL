@@ -1,0 +1,29 @@
+{
+    "USVAgent": {
+        "checkpoints": [
+            {
+                "steps": 16667,
+                "file_path": "results\\rl-test-002\\USVAgent\\USVAgent-16667.onnx",
+                "reward": -192.61444622278214,
+                "creation_time": 1759833113.1501915,
+                "auxillary_file_paths": [
+                    "results\\rl-test-002\\USVAgent\\USVAgent-16667.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 16667,
+            "file_path": "results\\rl-test-002\\USVAgent.onnx",
+            "reward": -192.61444622278214,
+            "creation_time": 1759833113.1501915,
+            "auxillary_file_paths": [
+                "results\\rl-test-002\\USVAgent\\USVAgent-16667.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "2.2.1+cu121"
+    }
+}

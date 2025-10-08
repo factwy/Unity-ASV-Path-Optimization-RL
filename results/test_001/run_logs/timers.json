@@ -1,0 +1,42 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1759822506",
+        "python_version": "3.9.23 (main, Jun  5 2025, 13:25:08) [MSC v.1929 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\factw\\anaconda3\\envs\\gazebo\\Scripts\\mlagents-learn .\\config\\boat_rl_test.yaml --run-id=test_001",
+        "mlagents_version": "0.30.0",
+        "mlagents_envs_version": "0.30.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "2.2.1+cu121",
+        "numpy_version": "1.21.2",
+        "end_time_seconds": "1759822544"
+    },
+    "total": 38.0353962,
+    "count": 1,
+    "self": 0.003919500000002074,
+    "children": {
+        "run_training.setup": {
+            "total": 0.05207709999999999,
+            "count": 1,
+            "self": 0.05207709999999999
+        },
+        "TrainerController.start_learning": {
+            "total": 37.9793996,
+            "count": 1,
+            "self": 5.8399999993241636e-05,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 37.9793297,
+                    "count": 1,
+                    "self": 37.9793297
+                },
+                "TrainerController._save_models": {
+                    "total": 1.1500000006492428e-05,
+                    "count": 1,
+                    "self": 1.1500000006492428e-05
+                }
+            }
+        }
+    }
+}
