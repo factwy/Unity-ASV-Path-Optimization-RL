@@ -399,18 +399,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 353594363913483614, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
-      propertyPath: m_Model
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 353594363913483614, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
-      propertyPath: m_BehaviorType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 353594363913483614, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
-      propertyPath: m_InferenceDevice
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 353594363913483614, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
       propertyPath: m_BrainParameters.VectorObservationSize
       value: 25
       objectReference: {fileID: 0}
@@ -431,10 +419,6 @@ PrefabInstance:
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
-      propertyPath: isTestMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
       propertyPath: w1_distance
       value: 0.0025
       objectReference: {fileID: 0}
@@ -447,10 +431,6 @@ PrefabInstance:
       value: 0.0001
       objectReference: {fileID: 0}
     - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
-      propertyPath: testTimeScale
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
       propertyPath: capsizedPenalty
       value: -0.5
       objectReference: {fileID: 0}
@@ -461,10 +441,6 @@ PrefabInstance:
     - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
       propertyPath: sensorMaxDistance
       value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
-      propertyPath: testMovingObstacles
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
       propertyPath: capsizeRollThreshold

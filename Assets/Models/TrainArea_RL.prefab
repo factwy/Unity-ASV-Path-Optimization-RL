@@ -2570,7 +2570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 21
+    VectorObservationSize: 25
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 2
@@ -2658,7 +2658,7 @@ MonoBehaviour:
   - {fileID: 2601759525523191535}
   - {fileID: 2222929896323330898}
   - {fileID: 518669148276043461}
-  sensorMaxDistance: 50
+  sensorMaxDistance: 200
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -2666,18 +2666,18 @@ MonoBehaviour:
   maxAngularVelocity: 2
   maxRollAngle: 45
   maxPitchAngle: 30
-  goalReward: 1500
-  collisionPenalty: -1000
-  capsizedPenalty: -500
-  w1_distance: 2.5
-  w2_safety: 0.3
-  w3_velocity: 0.3
-  w4_stability: 0.1
-  w5_risk: 0.3
-  w6_roll: 0.4
+  goalReward: 1.5
+  collisionPenalty: -1
+  capsizedPenalty: -0.5
+  w1_distance: 0.0025
+  w2_safety: 0.0003
+  w3_velocity: 0.0003
+  w4_stability: 0.0001
+  w5_risk: 0.0003
+  w6_roll: 0.0004
   goalReachThreshold: 5
   maxEpisodeSteps: 5000
-  capsizeRollThreshold: 60
+  capsizeRollThreshold: 80
   isTestMode: 0
   testStaticObstacles: 8
   testMovingObstacles: 3
