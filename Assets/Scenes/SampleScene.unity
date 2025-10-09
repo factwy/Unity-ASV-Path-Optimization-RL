@@ -401,7 +401,7 @@ PrefabInstance:
     - target: {fileID: 353594363913483614, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
       propertyPath: m_Model
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5022602860645237092, guid: 18cb8cb4eaa344149b9ff001f89d89cc, type: 3}
     - target: {fileID: 353594363913483614, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
       propertyPath: m_BehaviorType
       value: 0
@@ -411,12 +411,56 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
+      propertyPath: w5_risk
+      value: 0.0003
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
+      propertyPath: w6_roll
+      value: 0.0004
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
+      propertyPath: w2_safety
+      value: 0.0003
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
       propertyPath: goalReward
-      value: 1500
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
+      propertyPath: isTestMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
       propertyPath: w1_distance
-      value: 2.5
+      value: 0.0025
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
+      propertyPath: w3_velocity
+      value: 0.0003
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
+      propertyPath: w4_stability
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
+      propertyPath: testTimeScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
+      propertyPath: capsizedPenalty
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
+      propertyPath: collisionPenalty
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
+      propertyPath: testMovingObstacles
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
+      propertyPath: capsizeRollThreshold
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 5983508676802931801, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
       propertyPath: m_RootOrder
