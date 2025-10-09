@@ -399,52 +399,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 353594363913483614, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 25
+      propertyPath: m_Model
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
-      propertyPath: w5_risk
-      value: 0.0003
-      objectReference: {fileID: 0}
-    - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
-      propertyPath: w6_roll
-      value: 0.0004
-      objectReference: {fileID: 0}
-    - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
-      propertyPath: w2_safety
-      value: 0.0003
-      objectReference: {fileID: 0}
-    - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
-      propertyPath: goalReward
-      value: 1.5
+      propertyPath: isTestMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
       propertyPath: w1_distance
-      value: 0.0025
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
-      propertyPath: w3_velocity
-      value: 0.0003
+      propertyPath: testMovingObstacles
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
-      propertyPath: w4_stability
-      value: 0.0001
-      objectReference: {fileID: 0}
-    - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
-      propertyPath: capsizedPenalty
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
-      propertyPath: collisionPenalty
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
-      propertyPath: sensorMaxDistance
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 2274119384959869350, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
-      propertyPath: capsizeRollThreshold
-      value: 80
+      propertyPath: testStaticObstacles
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5983508676802931801, guid: a884d132bfed13f43967c233b03b4f37, type: 3}
       propertyPath: m_RootOrder

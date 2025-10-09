@@ -35,7 +35,7 @@ environment_parameters:
           behavior: USVAgent
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 2.0
+          threshold: 1.3
         value: 0
       - name: Lesson2_Static1
         completion_criteria:
@@ -110,7 +110,7 @@ environment_parameters:
           behavior: USVAgent
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 2.0
+          threshold: 1.3
         value: 0
       - name: Lesson2_NoMoving
         completion_criteria:

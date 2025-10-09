@@ -327,6 +327,9 @@ namespace Crest
 
         public override void OnActionReceived(ActionBuffers actions)
         {
+            // 시간 패널티 추가
+            AddReward(-1f / maxEpisodeSteps);
+            
             stepCount++;
             
             if (boatController == null)
