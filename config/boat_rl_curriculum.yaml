@@ -35,7 +35,7 @@ environment_parameters:
           behavior: USVAgent
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 1.2
+          threshold: 2.0
         value: 0
       - name: Lesson2_Static1
         completion_criteria:
@@ -43,7 +43,7 @@ environment_parameters:
           behavior: USVAgent
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 1.2
+          threshold: 2.0
         value: 1
       - name: Lesson3_Static2
         completion_criteria:
@@ -51,7 +51,7 @@ environment_parameters:
           behavior: USVAgent
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 1.2
+          threshold: 2.0
         value: 2
       - name: Lesson4_Static3
         completion_criteria:
@@ -59,7 +59,7 @@ environment_parameters:
           behavior: USVAgent
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 1.2
+          threshold: 2.0
         value: 3
       - name: Lesson5_Static4
         completion_criteria:
@@ -67,7 +67,7 @@ environment_parameters:
           behavior: USVAgent
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 1.2
+          threshold: 2.0
         value: 4
       - name: Lesson6_Static5
         completion_criteria:
@@ -75,7 +75,7 @@ environment_parameters:
           behavior: USVAgent
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 1.2
+          threshold: 2.0
         value: 5
       - name: Lesson7_Static6
         completion_criteria:
@@ -83,7 +83,7 @@ environment_parameters:
           behavior: USVAgent
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 1.2
+          threshold: 2.0
         value: 6
       - name: Lesson8_Static7
         completion_criteria:
@@ -91,7 +91,7 @@ environment_parameters:
           behavior: USVAgent
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 1.2
+          threshold: 2.0
         value: 7
       - name: Lesson9_AllStatic
         completion_criteria:
@@ -110,7 +110,7 @@ environment_parameters:
           behavior: USVAgent
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 1.2
+          threshold: 2.0
         value: 0
       - name: Lesson2_NoMoving
         completion_criteria:
@@ -118,7 +118,7 @@ environment_parameters:
           behavior: USVAgent
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 1.2
+          threshold: 2.0
         value: 0
       - name: Lesson3_NoMoving
         completion_criteria:
@@ -126,7 +126,7 @@ environment_parameters:
           behavior: USVAgent
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 1.2
+          threshold: 2.0
         value: 0
       - name: Lesson4_Moving1
         completion_criteria:
@@ -134,7 +134,7 @@ environment_parameters:
           behavior: USVAgent
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 1.2
+          threshold: 2.0
         value: 1
       - name: Lesson5_Moving1
         completion_criteria:
@@ -142,7 +142,7 @@ environment_parameters:
           behavior: USVAgent
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 1.2
+          threshold: 2.0
         value: 1
       - name: Lesson6_Moving2
         completion_criteria:
@@ -150,7 +150,7 @@ environment_parameters:
           behavior: USVAgent
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 1.2
+          threshold: 2.0
         value: 2
       - name: Lesson7_Moving2
         completion_criteria:
@@ -158,7 +158,7 @@ environment_parameters:
           behavior: USVAgent
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 1.2
+          threshold: 2.0
         value: 2
       - name: Lesson8_Moving3
         completion_criteria:
@@ -166,7 +166,7 @@ environment_parameters:
           behavior: USVAgent
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 1.2
+          threshold: 2.0
         value: 3
       - name: Lesson9_AllMoving
         completion_criteria:

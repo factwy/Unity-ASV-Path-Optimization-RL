@@ -8,7 +8,8 @@ using System.Linq;
 namespace Crest
 {
     /// <summary>
-    /// ML-Agents 기반 USV 강화학습 Agent (커리큘럼 학습 적용)
+    /// ML-Agents 기반 USV 강화학습 Agent (360도 센서 + 커리큘럼 학습)
+    /// State: 25개 관측값 (9개 센서 + 이전 9개 센서)
     /// </summary>
     public class BoatAgent_RL : Agent
     {
@@ -17,15 +18,16 @@ namespace Crest
         [SerializeField] private Transform goalTransform;
         
         [Header("Curriculum - Obstacle Lists")]
-        [SerializeField] private List<GameObject> staticObstacles = new List<GameObject>();  // Obstacle 8개
-        [SerializeField] private List<GameObject> movingObstacles = new List<GameObject>(); // MovingObstacle 4개
+        [SerializeField] private List<GameObject> staticObstacles = new List<GameObject>();
+        [SerializeField] private List<GameObject> movingObstacles = new List<GameObject>();
         
-        [Header("Sensor Configuration")]
+        [Header("Sensor Configuration - 360° Coverage")]
         [SerializeField] private float sensorMaxDistance = 200f;
         [SerializeField] private LayerMask obstacleLayer;
-        private readonly float[] sensorAngles = { -45f, -30f, -15f, 0f, 15f, 30f, 45f };
-        private float[] currentSensorDistances = new float[7];
-        private float[] previousSensorDistances = new float[7];
+        // 360도를 40도씩 9개로 분할: 0°, 40°, 80°, 120°, 160°, 200°, 240°, 280°, 320°
+        private readonly float[] sensorAngles = { 0f, 40f, 80f, 120f, 160f, 200f, 240f, 280f, 320f };
+        private float[] currentSensorDistances = new float[9];
+        private float[] previousSensorDistances = new float[9];
         
         [Header("Normalization Parameters")]
         [SerializeField] private float maxLinearVelocity = 10f;
@@ -74,17 +76,13 @@ namespace Crest
         private int stepCount;
         
         // Curriculum variables
-        private int currentNumStaticObstacles = -1;  // -1로 초기화하여 첫 업데이트 강제
-        private int currentNumMovingObstacles = -1;  // -1로 초기화하여 첫 업데이트 강제
+        private int currentNumStaticObstacles = -1;
+        private int currentNumMovingObstacles = -1;
         private List<GameObject> activeStaticObstacles = new List<GameObject>();
         private List<GameObject> activeMovingObstacles = new List<GameObject>();
 
         private void Awake()
         {
-            // Debug.Log("==========================================");
-            // Debug.Log("BoatAgent_RL Awake START! (Curriculum Learning Enabled)");
-            // Debug.Log("==========================================");
-            
             if (boatController == null)
                 boatController = GetComponent<BoatProbes_RL>();
             
@@ -92,28 +90,25 @@ namespace Crest
             
             if (rb == null)
             {
-                // Debug.LogError("Rigidbody is missing! Please add it to the GameObject.");
                 return;
             }
             
             startPosition = transform.position;
             startRotation = transform.rotation;
             
-            // 배열 초기화
-            currentSensorDistances = new float[7];
-            previousSensorDistances = new float[7];
+            // 배열 초기화 (9개 센서)
+            currentSensorDistances = new float[9];
+            previousSensorDistances = new float[9];
             
             // Decision Requester 확인
             if (GetComponent<Unity.MLAgents.DecisionRequester>() == null)
             {
-                // Debug.LogError("Decision Requester component is missing! Please add it to the GameObject.");
             }
             
             // 장애물 리스트 검증
             ValidateObstacleLists();
             
-            // 시작 시 모든 장애물 비활성화 (초기 상태)
-            // Debug.Log("Initial obstacle deactivation in Awake");
+            // 시작 시 모든 장애물 비활성화
             foreach (var obstacle in staticObstacles)
             {
                 if (obstacle != null)
@@ -128,30 +123,19 @@ namespace Crest
             // 추론 과정에서의 시간 배율 조정
             if (isTestMode)
                 Time.timeScale = testTimeScale;
-
-            // Debug.Log("BoatAgent_RL Awake completed successfully");
         }
 
         public override void Initialize()
         {
             base.Initialize();
             MaxStep = (int)maxEpisodeSteps;
-            
-            // Debug.Log("=== BoatAgent_RL Initialize Called ===");
-            // Debug.Log($"MaxSteps: {MaxStep}");
-            // Debug.Log($"Static Obstacles: {staticObstacles.Count}");
-            // Debug.Log($"Moving Obstacles: {movingObstacles.Count}");
-            // Debug.Log("Curriculum Learning: ENABLED");
         }
 
         public override void OnEpisodeBegin()
         {
-            // Debug.Log("=== OnEpisodeBegin Called ===");
-            
             // Null 체크
             if (goalTransform == null || rb == null)
             {
-                // Debug.LogError("Required references are missing!");
                 return;
             }
             
@@ -166,7 +150,7 @@ namespace Crest
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
             
-            // **커리큘럼 파라미터 읽기 및 장애물 설정**
+            // 커리큘럼 파라미터 읽기 및 장애물 설정
             UpdateCurriculumObstacles();
             
             // 센서 초기화
@@ -182,9 +166,6 @@ namespace Crest
             UpdateAttitude();
             previousRollAngle = currentRollAngle;
             previousPitchAngle = currentPitchAngle;
-            
-            // Debug.Log($"Episode started - Distance to goal: {currentGoalDistance:F2}");
-            // Debug.Log($"=== Episode Ready - Static: {activeStaticObstacles.Count}/{currentNumStaticObstacles}, Moving: {activeMovingObstacles.Count}/{currentNumMovingObstacles} ===");
         }
 
         /// <summary>
@@ -206,9 +187,6 @@ namespace Crest
                     Academy.Instance.EnvironmentParameters.GetWithDefault("num_moving_obstacles", 0f)
                 );
                 
-                // Debug.Log($"[Curriculum] Read from Academy - Static: {targetStaticCount}, Moving: {targetMovingCount}");
-                // Debug.Log($"[Curriculum] Current values - Static: {currentNumStaticObstacles}, Moving: {currentNumMovingObstacles}");
-                
                 // 이전 설정과 다르면 장애물 재배치
                 if (targetStaticCount != currentNumStaticObstacles || 
                     targetMovingCount != currentNumMovingObstacles)
@@ -216,14 +194,8 @@ namespace Crest
                     currentNumStaticObstacles = targetStaticCount;
                     currentNumMovingObstacles = targetMovingCount;
                     
-                    // Debug.Log($"[Curriculum] UPDATE! Now Setting - Static: {currentNumStaticObstacles}, Moving: {currentNumMovingObstacles}");
-                    
                     // 장애물 활성화/비활성화
                     ActivateObstacles();
-                }
-                else
-                {
-                    // Debug.Log("[Curriculum] No change detected, skipping obstacle update");
                 }
             }
         }
@@ -233,8 +205,6 @@ namespace Crest
         /// </summary>
         private void ActivateObstacles()
         {
-            // Debug.Log($"[Activate] Starting obstacle activation - Target Static: {currentNumStaticObstacles}, Target Moving: {currentNumMovingObstacles}");
-            
             // 1. 모든 장애물 비활성화
             foreach (var obstacle in staticObstacles)
             {
@@ -246,8 +216,6 @@ namespace Crest
                 if (obstacle != null)
                     obstacle.SetActive(false);
             }
-            
-            // Debug.Log("[Activate] All obstacles deactivated");
             
             // 2. 정적 장애물 랜덤 선택 및 활성화
             activeStaticObstacles.Clear();
@@ -262,7 +230,6 @@ namespace Crest
                     {
                         shuffled[i].SetActive(true);
                         activeStaticObstacles.Add(shuffled[i]);
-                        // Debug.Log($"[Activate] Static obstacle {i+1}/{count}: {shuffled[i].name} - ACTIVATED");
                     }
                 }
             }
@@ -280,12 +247,9 @@ namespace Crest
                     {
                         shuffled[i].SetActive(true);
                         activeMovingObstacles.Add(shuffled[i]);
-                        // Debug.Log($"[Activate] Moving obstacle {i+1}/{count}: {shuffled[i].name} - ACTIVATED");
                     }
                 }
             }
-            
-            // Debug.Log($"[Activate] COMPLETE - Active Static: {activeStaticObstacles.Count}, Active Moving: {activeMovingObstacles.Count}");
         }
 
         /// <summary>
@@ -295,11 +259,9 @@ namespace Crest
         {
             if (staticObstacles.Count != 8)
             {
-                // Debug.LogWarning($"Static obstacles count is {staticObstacles.Count}, expected 8. Please assign them in Inspector.");
             }
             if (movingObstacles.Count != 4)
             {
-                // Debug.LogWarning($"Moving obstacles count is {movingObstacles.Count}, expected 4. Please assign them in Inspector.");
             }
         }
 
@@ -308,64 +270,59 @@ namespace Crest
             // Null 체크
             if (goalTransform == null || rb == null)
             {
-                // Debug.LogError("Required references are missing!");
-                for (int i = 0; i < 21; i++)
+                // 기본값으로 채우기 (25개)
+                for (int i = 0; i < 25; i++)
                 {
                     sensor.AddObservation(0f);
                 }
                 return;
             }
             
-            // 첫 호출 시 로그
-            if (stepCount == 0)
-            {
-                // Debug.Log("=== CollectObservations Called ===");
-                // Debug.Log("Total Observations: 21");
-            }
-            
             UpdateSensors();
             UpdateAttitude();
             
-            // 현재 타임스텝 관측 (S_t)
+            // ===== 현재 타임스텝 관측 (S_t) =====
             
-            // 1. 센서 거리 (7개)
+            // 1. 센서 거리 (9개) - 정규화
             for (int i = 0; i < currentSensorDistances.Length; i++)
             {
                 sensor.AddObservation(currentSensorDistances[i] / sensorMaxDistance);
             }
             
-            // 2. 목표점과의 거리
+            // 2. 목표점과의 거리 - 정규화
             currentGoalDistance = Vector3.Distance(transform.position, goalTransform.position);
             sensor.AddObservation(currentGoalDistance / sensorMaxDistance);
             
-            // 3. 목표점과의 각도
+            // 3. 목표점과의 각도 - 정규화 (-1 ~ 1)
             float goalAngle = GetGoalAngle();
             sensor.AddObservation(goalAngle / Mathf.PI);
             
-            // 4. 현재 선형 속도
+            // 4. 현재 선형 속도 - 정규화
             float linearVelocity = Vector3.Dot(rb.velocity, transform.forward);
             sensor.AddObservation(linearVelocity / maxLinearVelocity);
             
-            // 5. 현재 각속도
+            // 5. 현재 각속도 - 정규화
             float angularVelocity = rb.angularVelocity.y;
             sensor.AddObservation(angularVelocity / maxAngularVelocity);
             
-            // 6. 현재 롤 각도
+            // 6. 현재 롤 각도 - 정규화
             sensor.AddObservation(currentRollAngle / maxRollAngle);
             
-            // 7. 현재 피치 각도
+            // 7. 현재 피치 각도 - 정규화
             sensor.AddObservation(currentPitchAngle / maxPitchAngle);
             
-            // 이전 타임스텝 관측 (S_{t-1})
+            // ===== 이전 타임스텝 관측 (S_{t-1}) =====
             
-            // 8. 이전 센서 거리 (7개)
+            // 8. 이전 센서 거리 (9개) - 정규화
             for (int i = 0; i < previousSensorDistances.Length; i++)
             {
                 sensor.AddObservation(previousSensorDistances[i] / sensorMaxDistance);
             }
             
-            // 9. 이전 목표점 거리
+            // 9. 이전 목표점 거리 - 정규화
             sensor.AddObservation(previousGoalDistance / sensorMaxDistance);
+            
+            // Total observations: 9 + 1 + 1 + 1 + 1 + 1 + 1 + 9 + 1 = 25
         }
 
         public override void OnActionReceived(ActionBuffers actions)
@@ -374,13 +331,7 @@ namespace Crest
             
             if (boatController == null)
             {
-                // Debug.LogError("BoatController is not set!");
                 return;
-            }
-            
-            if (stepCount == 1)
-            {
-                // Debug.Log("=== OnActionReceived Called - Training Started! ===");
             }
             
             // Action: [v_t, omega_t]
@@ -414,6 +365,9 @@ namespace Crest
             continuousActions[1] = Input.GetAxis("Horizontal");
         }
 
+        /// <summary>
+        /// 360도 센서를 사용하여 장애물 거리 측정 (9개 광선, 40도 간격)
+        /// </summary>
         private void UpdateSensors()
         {
             minObstacleDistance = sensorMaxDistance;
@@ -433,9 +387,6 @@ namespace Crest
                 {
                     currentSensorDistances[i] = sensorMaxDistance;
                 }
-                
-                // Debug.DrawRay(transform.position, direction * currentSensorDistances[i], 
-                //     currentSensorDistances[i] < sensorMaxDistance ? Color.red : Color.yellow);
             }
         }
 
@@ -535,7 +486,6 @@ namespace Crest
             {
                 AddReward(goalReward);
                 EndEpisode();
-                // Debug.Log($"Goal Reached! Episode ended at step {stepCount}");
                 return;
             }
             
@@ -544,7 +494,6 @@ namespace Crest
             {
                 AddReward(capsizedPenalty);
                 EndEpisode();
-                // Debug.Log($"Capsized! Roll angle: {currentRollAngle:F2}° exceeded threshold {capsizeRollThreshold}°. Episode ended at step {stepCount}");
                 return;
             }
         }
@@ -557,7 +506,6 @@ namespace Crest
             {
                 AddReward(collisionPenalty);
                 EndEpisode();
-                // Debug.Log($"Physical collision detected with: {collidedObjectName}. Ended episode at step {stepCount}");
             }
         }
 
@@ -565,26 +513,28 @@ namespace Crest
         {
             if (!Application.isPlaying) return;
             
-            // 센서 시각화
-            Gizmos.color = Color.yellow;
+            // 360도 센서 시각화
             for (int i = 0; i < sensorAngles.Length; i++)
             {
                 float angle = sensorAngles[i];
                 Vector3 direction = Quaternion.Euler(0, angle, 0) * transform.forward;
+                
+                Color rayColor = currentSensorDistances[i] < sensorMaxDistance ? Color.red : Color.green;
+                Gizmos.color = rayColor;
                 Gizmos.DrawRay(transform.position, direction * currentSensorDistances[i]);
             }
             
             // 목표 지점까지의 선
             if (goalTransform != null)
             {
-                Gizmos.color = Color.green;
+                Gizmos.color = Color.cyan;
                 Gizmos.DrawLine(transform.position, goalTransform.position);
                 
-                Gizmos.color = Color.cyan;
+                Gizmos.color = new Color(0, 1, 1, 0.3f);
                 Gizmos.DrawWireSphere(goalTransform.position, goalReachThreshold);
             }
             
-            // 롤 각도 시각화
+            // 롤 각도 위험 시각화
             if (Mathf.Abs(currentRollAngle) > capsizeRollThreshold * 0.7f)
             {
                 Gizmos.color = Color.red;
