@@ -1221,6 +1221,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: moving_component3
       objectReference: {fileID: 0}
+    - target: {fileID: 2545267325916817620, guid: 6079594a58e6f5f45bdde47ecd907d4d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2816769491694781026, guid: 6079594a58e6f5f45bdde47ecd907d4d, type: 3}
       propertyPath: turnSpeed
       value: 30
@@ -1246,11 +1250,6 @@ PrefabInstance:
 --- !u!4 &43268946675136319 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 90047600983089708, guid: 6079594a58e6f5f45bdde47ecd907d4d, type: 3}
-  m_PrefabInstance: {fileID: 118871708132791571}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2518860285611572679 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2545267325916817620, guid: 6079594a58e6f5f45bdde47ecd907d4d, type: 3}
   m_PrefabInstance: {fileID: 118871708132791571}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &299273573439947306
@@ -2654,22 +2653,21 @@ MonoBehaviour:
   - {fileID: 3052650635891300293}
   movingObstacles:
   - {fileID: 7909930486766375209}
-  - {fileID: 2518860285611572679}
   - {fileID: 2601759525523191535}
   - {fileID: 2222929896323330898}
   - {fileID: 518669148276043461}
-  sensorMaxDistance: 200
+  sensorMaxDistance: 50
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 128
   maxLinearVelocity: 10
   maxAngularVelocity: 2
-  maxRollAngle: 45
+  maxRollAngle: 90
   maxPitchAngle: 30
-  goalReward: 1.5
+  goalReward: 2
   collisionPenalty: -1
-  capsizedPenalty: -0.5
-  w1_distance: 0.0025
+  capsizedPenalty: -1
+  w1_distance: 0.00001
   w2_safety: 0.0003
   w3_velocity: 0.0003
   w4_stability: 0.0001
@@ -2679,9 +2677,9 @@ MonoBehaviour:
   maxEpisodeSteps: 5000
   capsizeRollThreshold: 80
   isTestMode: 0
-  testStaticObstacles: 8
-  testMovingObstacles: 3
-  testTimeScale: 3
+  testStaticObstacles: 5
+  testMovingObstacles: 4
+  testTimeScale: 2
 --- !u!114 &2854343991741828717
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -328,7 +328,7 @@ namespace Crest
         public override void OnActionReceived(ActionBuffers actions)
         {
             // 시간 패널티 추가
-            AddReward(-1f / maxEpisodeSteps);
+            AddReward(-2f / maxEpisodeSteps);
             
             stepCount++;
             
@@ -440,7 +440,7 @@ namespace Crest
             }
             
             // 1. r_dist
-            float r_dist = previousGoalDistance - currentGoalDistance;
+            float r_dist = 1/currentGoalDistance - (1/previousGoalDistance);
             
             // 2. r_safe
             float r_safe = minObstacleDistance > 0 ? -1f / minObstacleDistance : -10f;
